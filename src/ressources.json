@@ -1,0 +1,333 @@
+[
+  {
+    "patient" : {"nom" : "Gates",
+                "prenom" : "Steve",
+                "age" : 99,
+                "poid" : 125,
+                "taille" : 120,
+                "_id" : "CeciEstLePatient1"},
+
+    "formMeta" : {"type" : "Questionnaire de suivi",
+                  "_id" : "form1Pat1",
+                  "other" : "zfzfz",
+                  "applicationId" : "app1"
+                },
+
+    "form" : [
+
+      {
+       "name": "prenom",
+       "scenario_id": 1,
+       "subgroup": 0,
+       "dieteticien_id": 1,
+       "field_type": "text",
+       "event": "none",
+       "display_group": 0,
+       "text": "Prénom",
+       "contrainte": "none",
+       "data_provider": "none",
+       "depends_on": "none"
+      },
+      {
+       "name": "date_naissance",
+       "scenario_id": 1,
+       "subgroup": 0,
+       "dieteticien_id": 1,
+       "field_type": "date",
+       "event": "CalculateAge",
+       "display_group": 0,
+       "text": "Vous êtes né(e) le ",
+       "contrainte": "none",
+       "data_provider": "none",
+       "depends_on": "none"
+      }
+    ]
+  },
+
+
+
+
+
+
+
+  {
+    "patient" : {"nom" : "Gates",
+                "prenom" : "Steve",
+                "age" : 99,
+                "poid" : 125,
+                "taille" : 120,
+                "_id" : "CeciEstLePatient1"},
+
+    "formMeta" : {"type" : "Trame de suivi",
+                  "_id" : "form2Pat1",
+                  "other" : "zfzfz",
+                  "applicationId" : "app1"
+                },
+
+    "form" : [
+      {
+       "name": "introduction",
+       "scenario_id": 1,
+       "subgroup": 0,
+       "dieteticien_id": 1,
+       "field_type": "none",
+       "event": "none",
+       "display_group": 0,
+       "text": "<style> ul li:before {     content: '\\2713';     margin: 0 1em;    } </style>  <p> Bonjour %patient_firstname% %patient_lastname%, je m'appelle %diet_firstname% %diet_lastname% et nous verrons ensemble ce que je peux faire pour vous. <br /> Je vais commencer par vous décrire le déroulement de cette consultation puis nous commencerons : <br/></p><ul>         <li>Je vous poserai quelques questions pour mieux vous connaître,</li>&emsp;&emsp;&emsp;identifier vos habitudes de vie et évaluer vos habitudes alimentaires.</li>    <li>A partir de ces données on pourra établir un point sur votre situation et votre objectif. </li>         <li>Ensuite nous verrons ensemble les actions à mettre en place pour atteindre au mieux votre objectif. </li>         <li>On finira sur une synthèse en reprenant les grandes étapes du plan mis en place et les décisions retenues.</li> </ul></p>",
+       "contrainte": "none",
+       "data_provider": "none",
+       "depends_on": "none"
+      },
+      {
+       "name": "nom",
+       "scenario_id": 1,
+       "subgroup": 0,
+       "dieteticien_id": 1,
+       "field_type": "text",
+       "event": "none",
+       "display_group": 0,
+       "text": "Je vais vérifier que les informations que jai sont exactes : Vous vous appelez, Nom: ",
+       "contrainte": "5,80",
+       "data_provider": "none",
+       "depends_on": "none"
+      }
+
+    ]
+  },
+
+
+
+
+
+
+
+
+
+
+
+  {
+    "patient" : {"prenom" : "Bill",
+                "nom" : "Jobs",
+                "age" : 98,
+                "poid" : 40,
+                "taille" : 180,
+                "_id" : "CeciEstLePatient2"},
+
+    "formMeta" : {"type" : "initial",
+                  "_id" : "form1Pat2",
+                  "other" : "zfzfz",
+                  "applicationId" : "app1"
+                },
+    "form" : [
+      {
+       "name": "introduction",
+       "scenario_id": 1,
+       "subgroup": 0,
+       "dieteticien_id": 1,
+       "field_type": "none",
+       "event": "none",
+       "display_group": 0,
+       "text": "<style> ul li:before {     content: '\\2713';     margin: 0 1em;    } </style>  <p> Bonjour %patient_firstname% %patient_lastname% <br /> Je vais commencer par vous décrire le déroulement de cette consultation puis nous commencerons : <br/></p><ul>         <li>Je vous poserai quelques questions pour mieux vous connaître,</li>&emsp;&emsp;&emsp;identifier vos habitudes de vie et évaluer vos habitudes alimentaires.</li>    <li>A partir de ces données on pourra établir un point sur votre situation et votre objectif. </li>         <li>Ensuite nous verrons ensemble les actions à mettre en place pour atteindre au mieux votre objectif. </li>         <li>On finira sur une synthèse en reprenant les grandes étapes du plan mis en place et les décisions retenues.</li> </ul></p>",
+       "contrainte": "none",
+       "data_provider": "none",
+       "depends_on": "none"
+      },
+      {
+       "name": "nom",
+       "scenario_id": 1,
+       "subgroup": 0,
+       "dieteticien_id": 1,
+       "field_type": "text",
+       "event": "none",
+       "display_group": 0,
+       "text": "Je vais vérifier que les informations que jai sont exactes : Vous vous appelez, Nom: ",
+       "contrainte": "5,80",
+       "data_provider": "none",
+       "depends_on": "none"
+      },
+      {
+       "name": "prenom",
+       "scenario_id": 1,
+       "subgroup": 0,
+       "dieteticien_id": 1,
+       "field_type": "text",
+       "event": "none",
+       "display_group": 0,
+       "text": "Prénom",
+       "contrainte": "none",
+       "data_provider": "none",
+       "depends_on": "none"
+      },
+      {
+       "name": "date_naissance",
+       "scenario_id": 1,
+       "subgroup": 0,
+       "dieteticien_id": 1,
+       "field_type": "date",
+       "event": "CalculateAge",
+       "display_group": 0,
+       "text": "Vous êtes né(e) le ",
+       "contrainte": "none",
+       "data_provider": "none",
+       "depends_on": "none"
+     },
+      {
+        "name": "grossesse",
+        "scenario_id": 1,
+        "subgroup": 1,
+        "dieteticien_id": 1,
+        "field_type": "boolean",
+        "event": "none",
+        "display_group": 0,
+        "text": "Etes vous enceinte",
+        "contrainte": "AND",
+        "data_provider": "none",
+        "depends_on": "[isFemale,age gt age_min,age lt age_max]"
+      },
+
+      {
+        "name": "date_poids_bas",
+        "scenario_id": 1,
+        "subgroup": 1,
+        "dieteticien_id": 1,
+        "field_type": "slider",
+        "event": "none",
+        "display_group": 0,
+        "text": "et à  quel âge ",
+        "contrainte": "0.05,0.80",
+        "data_provider": "{\"step\" : 0.1, \"modifier\": 100 }",
+        "depends_on": "variation_poids eq true"
+      },
+      {
+        "name": "situation_familiale",
+        "scenario_id": 1,
+        "subgroup": 2,
+        "dieteticien_id": 1,
+        "field_type": "choices",
+        "event": "none",
+        "display_group": 0,
+        "text": "Nous allons maintenant parler de vos conditions de vie : Vivez-vous seul, en couple, en famille ou en colocation ?",
+        "contrainte": "none",
+        "data_provider": "[{ \"id\":\"0\", \"text\":\"En couple\" },{ \"id\":\"1\", \"text\":\" Seul\" },{ \"id\":\"2\", \"text\":\" En Famille\" },{ \"id\":\"3\", \"text\":\" En Colocation\" }]",
+        "depends_on": "none"
+      },
+      {
+        "name": "materiel_repas",
+        "scenario_id": 1,
+        "subgroup": 2,
+        "dieteticien_id": 1,
+        "field_type": "cooking",
+        "event": "none",
+        "display_group": 0,
+        "text": "Quel matériel avez-vous à  disposition pour cuisiner ",
+        "contrainte": "none",
+        "data_provider": "[{ \"title\" : \"cuisson\" , \"items\" : [ \"autocuiseur\", \"cocotte/fait-tout\", \"cuit-vapeur\", \"four\", \"micro-onde\", \"plancha\", \"plaques de cuisson\"] } ,{ \"title\" : \"stockage\" , \"items\" :  [\"congélateur\", \"réfrigérateur\"] },{ \"title\" : \"préparation\" , \"items\" :  [ \"mixer (blender)\" , \"robot de cuisine\" ] }]",
+        "depends_on": "none"
+      },
+      {
+       "name": "resultats_regime_precedent",
+       "scenario_id": 1,
+       "subgroup": 3,
+       "dieteticien_id": 1,
+       "field_type": "checkList",
+       "event": "none",
+       "display_group": 0,
+       "text": "Quels ont été les résultats (court terme plus long terme) ",
+       "contrainte": "none",
+       "data_provider": "[{\"id\":\"0\", \"text\" : \"Prise de poids\" },{ \"id\":\"1\", \"text\" : \"Perte de poids\" },{ \"id\":\"2\", \"text\" : \"Pathologie\" },{ \"id\":\"3\", \"text\" : \"Meilleure forme\" } ]",
+       "depends_on": "regime_precedent eq true"
+      },
+      {
+        "name": "traitements",
+        "scenario_id": 2,
+        "subgroup": 0,
+        "dieteticien_id": 1,
+        "field_type": "cureTable",
+        "event": "none",
+        "display_group": 0,
+        "text": "Traitements",
+        "contrainte": "none",
+        "data_provider": "none",
+        "depends_on": "none"
+      },
+      {
+       "name": "regime_applique",
+       "scenario_id": 2,
+       "subgroup": 0,
+       "dieteticien_id": 1,
+       "field_type": "dietTable",
+       "event": "none",
+       "display_group": 2,
+       "text": "Régime appliqué ",
+       "contrainte": "none",
+       "data_provider": "none",
+       "depends_on": "none"
+      },
+      {
+       "name": "nutrition_produits",
+       "scenario_id": 2,
+       "subgroup": 0,
+       "dieteticien_id": 1,
+       "field_type": "choiceAddRemove",
+       "event": "none",
+       "display_group": 2,
+       "text": "Produit : ",
+       "contrainte": "none",
+       "data_provider": "[{\"id\":\"0\",\"text\":\"Peptamen neutre smartflex\"},{\"id\":\"1\",\"text\":\"Peptamen AF neutre smartflex\"},{\"id\":\"2\",\"text\":\"Peptamen HN neutre smartflex\"},{\"id\":\"3\",\"text\":\"Isosource Protein Fibre Neutre Smartflex\"},{\"id\":\"4\",\"text\":\"Isosource Protein Neutre Smartflex\"},{\"id\":\"5\",\"text\":\"Isosource Energy Fibre Neutre Smartflex\"},{\"id\":\"6\",\"text\":\"Isosource Standard Neutre Smartflex\"},{\"id\":\"7\",\"text\":\"Isosource Standard Fibre Neutre Smartflex\"},{\"id\":\"8\",\"text\":\"Isosource Protein Neutre Smartflex\"},{\"id\":\"9\",\"text\":\"Isosource Mix Neutre Smartflex\"},{\"id\":\"10\",\"text\":\"Impact entéral\"},{\"id\":\"11\",\"text\":\"Nutrison low energy\"},{\"id\":\"12\",\"text\":\"Nutrison low energy Multi fibres\"},{\"id\":\"13\",\"text\":\"Nutrison standard\"},{\"id\":\"14\",\"text\":\"Nutrison energy\"},{\"id\":\"15\",\"text\":\"Nutrison energy Multi fibres\"},{\"id\":\"16\",\"text\":\"Nutrison protein +\"},{\"id\":\"17\",\"text\":\"Nutrison protein + Fibres\"},{\"id\":\"18\",\"text\":\"Nutrison multi fibres\"},{\"id\":\"19\",\"text\":\"Fresubin original\"},{\"id\":\"20\",\"text\":\"Fresubin original fibres\"},{\"id\":\"21\",\"text\":\"Fresubin energy\"},{\"id\":\"22\",\"text\":\"Fresubin energy fibres\"},{\"id\":\"23\",\"text\":\"Fresubin HP energy\"},{\"id\":\"24\",\"text\":\"Sondalis Iso\"},{\"id\":\"25\",\"text\":\"Sondalis 0.75 Plus\"},{\"id\":\"26\",\"text\":\"Sondalis 1.5\"},{\"id\":\"27\",\"text\":\"Sondalis HP\"},{\"id\":\"28\",\"text\":\"Sondalis HP fibres\"},{\"id\":\"29\",\"text\":\"Sondalis Fibres\"},{\"id\":\"30\",\"text\":\"Realdiet standard\"},{\"id\":\"31\",\"text\":\"Realdiet Fibres\"},{\"id\":\"32\",\"text\":\"Realdiet HC\"},{\"id\":\"33\",\"text\":\"Realdiet HP HC\"},{\"id\":\"34\",\"text\":\"Realdiet HP Fibres\"},{\"id\":\"35\",\"text\":\"Megareal\"},{\"id\":\"36\",\"text\":\"Megareal Fibres\"},{\"id\":\"37\",\"text\":\"Autre\"}]",
+       "depends_on": "nutrition_enterale eq true"
+      },
+      {
+       "name": "consomation_alimentaire",
+       "scenario_id": 2,
+       "subgroup": 0,
+       "dieteticien_id": 1,
+       "field_type": "newMealTable",
+       "event": "none",
+       "display_group": 3,
+       "text": "Consommation alimentaire des trois dernier jours",
+       "contrainte": "none",
+       "data_provider": "consomation_alimentaire_j1,consomation_alimentaire_j2,consomation_alimentaire_j3",
+       "depends_on": "none"
+      },
+      {
+       "name": "heure_repas",
+       "scenario_id": 3,
+       "subgroup": 0,
+       "dieteticien_id": 1,
+       "field_type": "mealTime",
+       "event": "none",
+       "display_group": 0,
+       "text": "Vers quelle heure prenez-vous vos repas",
+       "contrainte": "none",
+       "data_provider": "none",
+       "depends_on": "none"
+     },
+      {
+        "name": "collation_contenu",
+        "scenario_id": 3,
+        "subgroup": 1,
+        "dieteticien_id": 1,
+        "field_type": "collationTable",
+        "event": "none",
+        "display_group": 0,
+        "text": "Qu'est ce que vous prenez",
+        "contrainte": "1,500",
+        "data_provider": "none",
+        "depends_on": "collation eq true"
+      },
+      {
+        "name": "pathologies_nom",
+        "scenario_id": 1,
+        "subgroup": 1,
+        "dieteticien_id": 1,
+        "field_type": "dynamicMultiplebox",
+        "event": "none",
+        "display_group": 0,
+        "text": "Laquelle",
+        "contrainte": "none",
+        "data_provider": "{\"primary\":[{\"id\":\"0\",\"text\":\"Pathologie digestive\"},{\"id\":\"1\",\"text\":\"Pathologie hépatique\"},{\"id\":\"2\",\"text\":\"Pathologie métabolique\"},{\"id\":\"3\",\"text\":\"Pathologie rénale\"},{\"id\":\"4\",\"text\":\"Pathologie cardiaque\"},{\"id\":\"5\",\"text\":\"Pathologie pancréatique\"},{\"id\":\"6\",\"text\":\"Pathologie respiratoire\"},{\"id\":\"7\",\"text\":\"Autres\"}],\"secondary\":[{\"id\":\"0\",\"array\":[{\"id\":0,\"text\":\"gastrectomie\"},{\"id\":1,\"text\":\"diarrhée chronique\"},{\"id\":2,\"text\":\"constipation\"},{\"id\":3,\"text\":\"résection intestinale\"},{\"id\":4,\"text\":\"résection du côlon\"}]},{\"id\":\"1\",\"array\":[{\"id\":0,\"text\":\"cirrhose\"},{\"id\":1,\"text\":\"insuffisance hépatique\"}]},{\"id\":\"2\",\"array\":[{\"id\":0,\"text\":\"diabète de type 1\"},{\"id\":1,\"text\":\"diabète de type 2\"},{\"id\":2,\"text\":\"obésité\"},{\"id\":3,\"text\":\"dyslipidémie\"},{\"id\":4,\"text\":\"dénutrition\"}]},{\"id\":\"3\",\"array\":[{\"id\":0,\"text\":\"insuffisance rénale\"},{\"id\":1,\"text\":\"syndrome néphrotique\"}]},{\"id\":\"4\",\"array\":[{\"id\":0,\"text\":\"insuffisance cardiaque\"},{\"id\":1,\"text\":\"chirurgie cardiaque\"},{\"id\":2,\"text\":\"hypertension artérielle\"},{\"id\":3,\"text\":\"athérosclérose\"},{\"id\":4,\"text\":\"post-infarctus\"},{\"id\":5,\"text\":\"post-accident vasculaire cérébral\"}]},{\"id\":\"5\",\"array\":[{\"id\":0,\"text\":\"pancréatite\"},{\"id\":1,\"text\":\"insuffisance pancréatique\"},{\"id\":2,\"text\":\"pancréatectomie\"},{\"id\":3,\"text\":\"duodéno-pancréatectomie céphalique\"},{\"id\":4,\"text\":\"cholécystectomie\"}]},{\"id\":\"6\",\"array\":[{\"id\":0,\"text\":\"insuffisance respiratoire chronique\"},{\"id\":1,\"text\":\"broncho-pneumopathie chronique obstructive\"}]},{\"id\":\"7\", \"array\":[ {\"id\":\"0\", \"text\":\"Aucune\"}, {\"id\":\"1\", \"text\":\"Autre\"} ]}]}",
+        "depends_on": "pathologie eq true"
+      }
+    ]
+  }
+]

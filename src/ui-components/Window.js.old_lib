@@ -1,0 +1,339 @@
+import React, {Component, PropTypes} from 'react'
+import ReactDOM from 'react-dom';
+import MovableResizableWindow from 'react-rnd';
+import DnR from 'react-dnr';
+import { Modal, Button } from 'react-bootstrap';
+import { Grid, Row, Col, Panel } from 'react-bootstrap';
+import NavigationClose from 'material-ui/svg-icons/navigation/close';
+import Lock from 'material-ui/svg-icons/action/lock';
+import LockOpen from 'material-ui/svg-icons/action/lock-open';
+import AppBar from 'material-ui/AppBar';
+import FlatButton from 'material-ui/FlatButton';
+import IconButton from 'material-ui/IconButton';
+import IconMenu from 'material-ui/IconMenu';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import MenuItem from 'material-ui/MenuItem';
+import {WindowsTheme} from '../themes/default_theme';
+
+const paneStyle = {
+	width: '80%',
+	height: '50%',
+	top: '25%',
+	left: '10%',
+	backgroundColor: 'rgba(0, 0, 0, 0.2)'
+}
+
+const buttonStyle = {
+		paddingLeft: 10,
+		textAlign: 'center'
+}
+
+class LayoutMenu extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: {},    
+    }    
+  }
+
+  handleLayoutMenuSelection = (event, value) => {
+
+    switch(value) {
+      case 0:
+       
+       this.props.windowActions.listLayout(this.props.store.auth.fullUser._id);
+       break;
+
+      case 1:
+       
+       var savedData = this.props.windowActions.reloadLayout(this.props.data);
+       break;
+
+      case 2:
+       
+       
+       this.props.windowActions.saveLayout(this.props.store.survey.dieteticien, this.props.data);
+       break;
+
+      case 3:
+       
+       this.props.toggleLockAspectRatio();
+       break;       
+
+      default:
+       
+       break;                              
+    }
+  }
+
+  componentDidMount() {
+    this.setState({state: this.props.data});
+    
+    
+  }
+
+  componentWillReceiveProps(nextProps) {
+    
+    
+    this.setState({data:nextProps.data});
+  }  
+
+  render() {
+    
+
+    /** create layout selector here */
+
+    return (
+      <IconMenu
+        onChange={this.handleLayoutMenuSelection}   
+        iconButtonElement={ <IconButton style={{ "marginTop": "-16px", "height":"initial" }}><MoreVertIcon /></IconButton> }
+        targetOrigin={{horizontal: 'right', vertical: 'top'}}
+        anchorOrigin={{horizontal: 'right', vertical: 'top'}}>
+        <MenuItem primaryText="Charger le layout par défault" value={0}/>
+        <MenuItem primaryText="Restaurer la position de la fenetre" value={1}/>
+        <MenuItem primaryText="Sauvegarder la position de la fenetre" value={2}/>
+        {this.props.store.window.aspectRatioLocked ? <MenuItem primaryText="Ignorer le ratio de la fenetre" value={3}/> : <MenuItem primaryText="Préserver le ratio de la fenetre" value={3}/>}
+      </IconMenu>
+    );
+  }
+}
+
+LayoutMenu.muiName = 'IconMenu';
+
+class Window extends Component {
+
+  constructor(props) {
+    super(props)
+    this.toggleLockPosition = this.toggleLockPosition.bind(this);
+    this.onResizeStart = this.onResizeStart.bind(this);
+    this.onResizeStop = this.onResizeStop.bind(this);
+    this.onDragStart = this.onDragStart.bind(this);
+    this.onDragStop = this.onDragStop.bind(this);
+    this.reloadLayout = this.reloadLayout.bind(this);
+    this.toggleLockAspectRatio = this.toggleLockAspectRatio.bind(this);
+    this.state = {
+      x: 0,
+      y: 0,
+      height: 0,
+      width: 0,
+      title: '',
+      id: '',    
+    }
+  }
+
+  componentWillMount() {
+    this.setState({
+      x: this.props.x,
+      y: this.props.y,
+      width: this.props.width,
+      height: this.props.height,
+      id: this.props.id,
+      title: this.props.title, 
+    })
+    
+  }
+
+  componentDidMount() {
+    
+    
+    this.props.windowActions.init(this.state);
+    var myWindow = ReactDOM.findDOMNode(this.refs.window);
+    myWindow.style.setProperty("cursor", "auto");
+  }
+ 
+  
+  componentWillReceiveProps(nextProps) {    
+    
+    
+    this.setState({
+      x: nextProps.x,
+      y: nextProps.y,
+      width: nextProps.width,
+      height: nextProps.height,
+      id: nextProps.id,
+      title: nextProps.title,    
+    })  
+    /*
+    this.refs.window.updateSize({width: nextProps.width, height: nextProps.height});
+    this.refs.window.updatePosition({ x: nextProps.x, y: nextProps.y });  
+    */    
+  }
+
+  toggleLockAspectRatio() {
+    
+    this.props.window.aspectRatioLocked ? this.props.windowActions.unlockAspectRatio() : this.props.windowActions.lockAspectRatio();  
+  }  
+  
+  toggleLockPosition(e) {
+    
+    
+    if (!this.props.window.positionLocked) {      
+      this.props.windowActions.lockWindowPosition()      
+      var myWindow = ReactDOM.findDOMNode(this.refs.window);
+      myWindow.style.setProperty("cursor", "auto");   
+    }
+    else {
+      this.props.windowActions.unlockWindowPosition();
+      var myWindow = ReactDOM.findDOMNode(this.refs.window);
+      myWindow.style.setProperty("cursor", "move");      
+    }
+  }
+
+  /**
+   * Use props to store position 
+   */
+  onResizeStart(e, data) {
+    
+    
+    
+    this.props.windowActions.onResizeStart(data);    
+  }
+
+ 
+
+  /** 
+   * save new position inside props
+   */
+  onResizeStop(e, data) {
+    
+    
+    this.props.windowActions.onResizeStop(data);
+    this.setState({width: data.width, height: data.height})    
+  } 
+
+  /** 
+   * start new drag (invalid current position/size)
+   */
+  onDragStart(e, data) {
+    
+    
+    if (this.props.window.positionLocked) {   
+      error.silent();
+    }
+    this.props.windowActions.onDragStart(data);
+  }
+
+  /**
+   * Store new position in props
+   */
+  onDragStop(e, data) {
+    
+    
+    
+    this.setState({x: data.position.left, y: data.position.top})
+    this.props.windowActions.onDragStop(data);
+    //this.props.windowActions.updateLyout(this.state);
+  }
+ 
+  reloadLayout() {
+    const savedPosition = this.props.window.layout[this.props.id];
+    
+    this.setState({
+      x: savedPosition.x,
+      y: savedPosition.y,
+      width: savedPosition.width,
+      height: savedPosition.height,
+      id: savedPosition.id,
+      title: savedPosition.title,    
+    })
+    this.refs.window.updateSize({width: savedPosition.width, height: savedPosition.height});
+    this.refs.window.updatePosition({ x: savedPosition.x, y: savedPosition.y });
+  }
+
+  render() {
+    
+    const reloadButton = (
+      <IconButton onClick={this.reloadLayout}>
+        <svg style={{width: "24px", height: "24px", fill: "#000000"}} viewBox="0 0 24 24">
+          <path
+            d="M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z"/>
+        </svg>
+      </IconButton>
+    );
+    const style = {
+      padding: '4px',
+      border: 'solid 1px #aaaaaa',
+      borderRadius: '3px',
+      color: '#000000',
+      alignItems: 'center',
+      justifyContent: 'center',
+      zIndex: 999,
+      overflow: 'hidden',
+    };    
+    return (
+        <MovableResizableWindow
+          ref={"window"}
+          initial={{
+            x: this.state.x,
+            y: this.state.y,
+            width: this.state.width,
+            height: this.state.height,
+          }}             
+          minWidth={300}
+          minHeight={160}
+          maxWidth={window.innerWidth}
+          maxHeight={window.innerHeight}
+          moveAxis={this.props.window.moveAxis}
+          bounds={this.props.bounds || 'body'}
+          isResizable={this.props.window.isResizable}
+          onClick={this.onClick}
+          onTouchStart={this.props.onTouchStart}
+          onDoubleClick={this.props.onDoubleClick}
+          onResizeStart={this.onResizeStart}
+          onResize={this.onResize}
+          onResizeStop={this.onResizeStop}
+          onDragStart={this.onDragStart}
+          onDrag={this.props.onDrag}
+          onDragStop={this.onDragStop}     
+          lockAspectRatio={this.props.window.aspectRatioLocked}
+          dragHandlerClassName={this.props.dragHandlerClassName}
+          zIndex={this.state.zIndex}
+          {...this.props.window}>
+          <AppBar
+            ref="titleBar"
+            style={{ height: "32px", "minHeight": "32px", backgroundColor: "#86868B" }}
+            title={this.props.title}
+            titleStyle={{ lineHeight: "32px", height: "initial" }}          
+            iconElementLeft={<IconButton 
+                              style={{ "marginTop": "-16px" }} 
+                              onClick={this.toggleLockPosition}>
+                              {this.props.window.positionLocked ? 
+                                <Lock /> 
+                                : 
+                                <LockOpen />
+                              }
+                              </IconButton>}
+            iconElementRight={
+              <IconButton style={{ "marginTop": "-16px", }}>
+                {this.props.layoutMenuActive ? 
+                <LayoutMenu 
+                    windowActions={this.props.windowActions} 
+                    userActions={this.props.userActions}
+                    data={this.state}                     
+                    reloadLayout={this.reloadLayout}
+                    store={this.props}
+                    context={this.context}
+                    toggleLockAspectRatio={this.toggleLockAspectRatio}/> 
+                    : 
+                    null}
+              </IconButton>}
+            />
+            {this.props.children}  
+            <pre>Layout props : {JSON.stringify(this.props.window.layout[this.props.id])}</pre> 
+            <pre>Layout state : {JSON.stringify(this.state)}</pre>            
+        </MovableResizableWindow>      
+    )
+  }
+}
+
+      
+
+// Since this is not a <Route> component, we add History to the context
+Window.contextTypes = {
+  history: React.PropTypes.object,
+  router: React.PropTypes.object,
+  store: React.PropTypes.object,
+};
+
+export default Window;

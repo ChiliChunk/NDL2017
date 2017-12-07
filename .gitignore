@@ -1,0 +1,17 @@
+.DS_Store
+npm-debug.log
+.nyc_output
+dist
+src/public/javascripts/app*
+src/public/javascripts/*hot*
+src/config.js
+.idea
+node_modules
+*.pem
+config.js
+*.pdf
+*.log
+*.swp
+build
+*.html
+package-lock.json

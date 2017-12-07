@@ -1,0 +1,126 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Grid, Col, Row, Panel, Form, Navbar, Modal, Button, FormControl, FormGroup, HelpBlock, ControlLabel } from 'react-bootstrap';
+import Nav from 'react-bootstrap/lib/Nav';
+import NavItem from 'react-bootstrap/lib/NavItem';
+import DatePicker from 'react-bootstrap/DatePicker';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon';
+import createReactClass from 'create-react-class';
+
+const spanishDayLabels = ['Dom', 'Lu', 'Ma', 'Mx', 'Ju', 'Vi', 'Sab'];
+const spanishMonthLabels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+const wapperDivStyle = { border: '1px solid #ccc' };
+const scrollingDivStyle = { padding: '10px', height: '70px', overflow: 'auto' };
+
+let DateTimeFormat;
+
+/**
+ * Use the native Intl.DateTimeFormat if available, or a polyfill if not.
+ */
+if (areIntlLocalesSupported(['fr'])) {
+  DateTimeFormat = global.Intl.DateTimeFormat;
+} else {
+  const IntlPolyfill = require('intl');
+  DateTimeFormat = IntlPolyfill.DateTimeFormat;
+  require('intl/locale-data/jsonp/fr');
+}
+
+const LIFETIME = 110;
+const ONEYEAR = 1;
+
+var DatePickerInputComponent = React.createClass({
+
+  getInitialState: function () {
+
+    const initialValue = this.props.value;
+    var dateFromProps = initialValue ? new Date(this.props.value) : new Date();
+
+    var minDate = new Date();
+    var maxDate = new Date();
+    minDate.setFullYear(minDate.getFullYear() - LIFETIME);
+    minDate.setHours(0, 0, 0, 0);
+    maxDate.setFullYear(maxDate.getFullYear() + ONEYEAR);
+    maxDate.setHours(0, 0, 0, 0);
+
+    
+
+    return {
+      value: dateFromProps.toDateString(),
+      textValue: dateFromProps.toDateString(),
+      autoOk: true,
+      minDate: minDate,
+      maxDate: maxDate,
+      showCalendar: false,
+    };
+  },
+
+  componentDidMount: function () {
+    
+    
+    
+    this.setState({ value: this.props.value })
+    this.props.item.value = this.props.value;
+  },
+
+  componentWillReceiveProps: function (nextProps) {
+    
+  },
+
+
+  formatDate(date) {
+    return new Intl.DateTimeFormat("fr").format(date);
+  },
+
+
+  render: function () {
+    return (
+      <div id="date-container">
+        <Row>
+          <Col xs={12} lgHidden>
+            <ControlLabel>{this.props.item.text}</ControlLabel>
+          </Col>
+          <Col xsHidden smHidden mdHidden lg={4}>
+            <ControlLabel bsClass="input-text-label-align">{this.props.item.text}</ControlLabel>
+          </Col>
+          <Col lg={4} md={6} xs={12}>
+            <TextField
+              onBlur={this._validateDate}
+              onChange={this._textChangeHandler}
+              style={{"width": "50%"}}
+              value={this.state.textValue}
+              defaultValue={this.props.value}
+              />
+            <IconButton onClick={this.openDatePickerDialog}>
+              <div>
+                <FontAwesome name='calendar' size='2x' fixedWidth style={{fontSize:"large"}}/>
+              </div>
+            </IconButton>               
+          </Col>
+          <Col lg={4} md={6} xs={12}>         
+            <DatePicker
+              ref="datepicker"
+              mode="landscape"
+              DateTimeFormat={DateTimeFormat}
+              okLabel="Valider"
+              cancelLabel="Annuler"
+              locale="fr"
+              container="dialog"
+              hintText="Calendrier"
+              minDate={this.state.minDate}
+              maxDate={this.state.maxDate}
+              autoOk={this.state.autoOk}
+              value={this.state.value}
+              onChange={this._dateChangeHandler}
+              onRequestClose={this._requestCloseHandler}
+              onDismiss={this._requestCloseHandler}
+              style={{"width": "98%"}}
+              />
+          </Col>
+        </Row>
+      </div>
+
+    );
+  }
+});
+
+export default DatePickerInputComponent;

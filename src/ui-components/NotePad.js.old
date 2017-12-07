@@ -1,0 +1,100 @@
+import React from 'react';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import Dialog from 'material-ui/Dialog';
+import { Grid, Row, Col, Panel } from 'react-bootstrap';
+
+var NotePad = React.createClass({
+
+  getInitialState: function () {
+    return ({ textValue: '', fileName: '', dialogOpen: false });
+  },
+
+  componentDidMount: function () {
+    this.setState({ textValue: '', fileName: '', dialogOpen: false });
+  },
+
+
+  _changeHandler: function (e) {
+    this.setState({ textValue: e.target.value })
+    e.stopPropagation();
+  },
+
+
+  _dialogChangeHandler(e) {
+    e.stopPropagation();
+    this.setState({ fileName: e.target.value })
+  },
+
+  makePDFHandler() {
+    this.setState({ dialogOpen: false })
+    this.props.update(this.state.textValue);
+    this.props.sendmail({ title: this.state.fileName, content: this.state.textValue }, this.props.userId)
+  },
+
+  update() {
+    this.props.update(this.state.textValue);
+  },
+
+  showConfirmationDialog(e) {
+    if (!this.state.textValue == '') this.setState({ dialogOpen: true })
+    else alert('Erreur: veuillez remplir une note avant de la sauvegarder')
+  },
+
+
+  handleClose(e) {
+    
+    this.setState({ dialogOpen: false });
+  },
+
+  render: function () {
+    const actions = [
+      <RaisedButton
+        label="Sauvegarder"
+         
+        keyboardFocused={true}
+        onTouchTap={this.makePDFHandler}
+      />,
+      <RaisedButton
+        label="Annuler"
+        secondary={true}
+        onTouchTap={this.handleClose}
+      />,
+    ];
+    return (
+      <div>
+        <Panel header={"Bloc-note"}>
+          <TextField
+            floatingLabelText={"Bloc-Notes"}
+            multiLine={true}
+            fullWidth={true}
+            onBlur={this.update}
+            onChange={this._changeHandler}
+            height={"100%"}
+            textValue={this.state.textValue} />
+
+          <div className="text-center">
+            <RaisedButton label="Télécharger au format PDF" onClick={this.showConfirmationDialog} />
+          </div>
+        </Panel>
+      </div>
+    );
+    //*/
+  }
+
+});
+/*
+
+              <Dialog
+                title="Choisissez un nom de fichier"
+                actions={actions}
+                modal={false}
+                open={this.state.dialogOpen}
+                onRequestClose={this.handleClose} >
+              <TextField 
+                  floatingLabelText={"Nom du fichier"} 
+                  onChange={this._dialogChangeHandler} 
+                  textValue={this.state.fileName} />
+              </Dialog>
+              */
+export default NotePad;
