@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<style>
+		.parallax {
+			/* Set a specific height */
+			min-height: 850px;
+
+			background-attachment: fixed;
+			background-position: center;
+			background-repeat: no-repeat;
+
+		}
+		.scene > div {
+		  position: absolute;
+		  bottom: 0;
+		}
+
+		.scene > div.clouds {
+		  width: 950px;
+		  left: 50%;
+		  height:20px;
+		  margin-left: -447px;
+		  background: url("lastpowder2.png") no-repeat center;
+		}
+			
+		
+
+	</style>
+
+	</head>
+	<body>
+		
+
+
+	<div class="parallax"></div>
+	<div  class="scene">
+	  <div id = "particles-js" data-offset="80" class="clouds parallax"></div>
+	</div>
+		<script src="js/particles.js"></script>
+		<script src="js/particles.min.js"></script>
+		<script src="js/app.js"></script>
+
+
+	</body>
+</html>
+
+<script>
+	$(window).on('mousemove', function(e) {
+	  var w = $(window).width();
+	  var h = $(window).height();
+	  var offsetX = 0.5 - e.pageX / w;
+	  var offsetY = 0.5 - e.pageY / h;
+
+	  $(".parallax").each(function(i, el) {
+		var offset = parseInt($(el).data('offset'));
+		var translate = "translate3d(" + Math.round(offsetX * offset) + "px," + Math.round(offsetY * offset) + "px, 0px)";
+
+		$(el).css({
+		'-webkit-transform': translate,
+		'transform': translate,
+		'moz-transform': translate
+		});
+	  });
+	});
+</script>
+
+
+
